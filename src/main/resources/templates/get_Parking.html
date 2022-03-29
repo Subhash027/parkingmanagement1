@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+    label {
+    display: inline-block;
+    width: 200px;
+    margin: 5px;
+    text-align: left;
+    }
+    input[type=text], select {
+    display: inline-block;
+    width: 200px;
+    }
+    button {
+    padding: 5px;
+    margin: 10px;
+    }
+    </style>
+</head>
+<body>
+<h1>get park</h1>
+<div align="center">
+    <h1 align="center">PARKING YOUR VEHICLE</h1>
+    <h6>give the details again</h6>
+    <form action="#" th:action="@{/getParkingAvailable}" method="get" th:object="${result}" >
+
+        <button type="submit">IsAvailable</button>
+
+
+    </form>
+</div>
+
+</body>
+
+</html>

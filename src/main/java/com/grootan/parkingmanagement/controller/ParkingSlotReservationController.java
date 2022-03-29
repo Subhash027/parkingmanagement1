@@ -1,18 +1,22 @@
 package com.grootan.parkingmanagement.controller;
 
 
-import com.grootan.parkingmanagement.domain.ParkingSlotReservation;
+import com.grootan.parkingmanagement.exception.VehicleNotFoundException;
+import com.grootan.parkingmanagement.model.CustomerDetails;
+import com.grootan.parkingmanagement.model.ParkingSlotReservation;
 import com.grootan.parkingmanagement.service.ParkingSlotReservationService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class ParkingSlotReservationController {
@@ -22,17 +26,43 @@ public class ParkingSlotReservationController {
 	@Autowired
 	ParkingSlotReservationService parkingSlotReservationService;
 
-	@PostMapping("/getReserve/{vehicleNumber}/{customerId}")
-	public ResponseEntity<ParkingSlotReservation> getReserve(@PathVariable(value = "vehicleNumber")String vehicleNumber, @PathVariable(value = "customerId")Integer CustomerId )
+	@GetMapping("/getBookingRecords")
+	public Iterable<ParkingSlotReservation> getAllParkingRecords()
 	{
-		logger.info("get vehicle number and Customer Id"+" "+vehicleNumber+" "+CustomerId);
-		ParkingSlotReservation parkingSlotReservation1=parkingSlotReservationService.confrimReservation(vehicleNumber,CustomerId);
-		return ResponseEntity.ok().body(parkingSlotReservation1);
+		return parkingSlotReservationService.getParkingList();
 	}
-	@GetMapping("/getbooking")
-	public ResponseEntity<List<ParkingSlotReservation>> getBookingDetails()
+	@GetMapping("/currentParking")
+	public List<ParkingSlotReservation> getCurrentParkingRecords()
 	{
-		return parkingSlotReservationService.getAllBooking();
+		List<ParkingSlotReservation> result = new ArrayList<>();
+		parkingSlotReservationService.getParkingList().forEach(result::add);
+		result=result.stream().filter(booking -> booking.getOutTime()==null).collect(Collectors.toList());
+		return result;
+	}
+
+	@GetMapping("/get/{licence_plate}")
+	public List<ParkingSlotReservation> getCurrentParkingWithLicencePlate(@PathVariable(value = "licence_plate") String licencePlate)
+	{
+		List<ParkingSlotReservation> result = new ArrayList<>();
+		parkingSlotReservationService.getParkingList().forEach(result::add);
+		result=result.stream().filter(parking -> parking.getVehicleNumber().equals(licencePlate)).collect(Collectors.toList());
+
+		if(result.size()==0)
+			throw new VehicleNotFoundException("there is no vehicle ");
+		else
+			return result;
+	}
+
+	@PostMapping("/booking")
+	public ResponseEntity<ParkingSlotReservation> checkInToParkingLot(@RequestBody @Valid CustomerDetails customer)
+	{
+		return new ResponseEntity<>(parkingSlotReservationService.createParking(customer), HttpStatus.CREATED);
+	}
+
+	@PutMapping("/out/{id}")
+	public ResponseEntity<ParkingSlotReservation> checkOutFromParkingLot(@PathVariable Integer id)
+	{
+		return new ResponseEntity<>(parkingSlotReservationService.updateParkingRecord(id), HttpStatus.OK);
 	}
 
 }

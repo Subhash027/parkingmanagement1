@@ -1,4 +1,4 @@
-package com.grootan.parkingmanagement.domain;
+package com.grootan.parkingmanagement.model;
 
 
 import lombok.Data;

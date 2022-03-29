@@ -1,11 +1,12 @@
 package com.grootan.parkingmanagement.controller;
 
-import com.grootan.parkingmanagement.domain.CustomerDetails;
-import com.grootan.parkingmanagement.domain.ParkingSlotReservation;
+import com.grootan.parkingmanagement.model.CustomerDetails;
 import com.grootan.parkingmanagement.service.CustomerDetailsService;
+import org.apache.el.stream.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -17,7 +18,7 @@ public class CustomerDetailsController {
 
 
     @Autowired
-    CustomerDetailsService parkingLotService;
+    CustomerDetailsService customerDetailsService;
 
     /***
      *
@@ -28,7 +29,7 @@ public class CustomerDetailsController {
    public CustomerDetails saveUserDetails(@RequestBody CustomerDetails customerDetails )
    {
        logger.info("collect data from customer store into DB");
-       parkingLotService.saveUserDetails(customerDetails);
+       customerDetailsService.saveUserDetails(customerDetails);
        logger.info("user saved in databse");
        return customerDetails;
    }
@@ -42,7 +43,7 @@ public class CustomerDetailsController {
     public CustomerDetails deleteByVehicleNumber(@PathVariable(value = "vehicleNumber")String vehicleNumber)
     {
         logger.warn("delete customer");
-        return  parkingLotService.deleteByvehicleNumber(vehicleNumber);
+        return  customerDetailsService.deleteByvehicleNumber(vehicleNumber);
     }
 
     /***
@@ -53,14 +54,14 @@ public class CustomerDetailsController {
     public List<CustomerDetails> findAll()
     {
         logger.info("fetching data from DB");
-        return parkingLotService.findAll();
+        return customerDetailsService.findAll();
     }
 
     @GetMapping("/getbyvehicleNumber/{vehicleNumber}")
-    public ResponseEntity<CustomerDetails> findByVehicleNumber(@PathVariable(value = "vehicleNumber")String vehicleNumber)
+    public ResponseEntity<?> findByVehicleNumber(@PathVariable(value = "vehicleNumber")String vehicleNumber)
     {
         logger.info("get vehicle number from customer");
-        return parkingLotService.findByVehicleNumber(vehicleNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(vehicleNumber);
     }
 
 

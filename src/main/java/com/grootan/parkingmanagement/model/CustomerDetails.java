@@ -1,4 +1,5 @@
-package com.grootan.parkingmanagement.domain;
+package com.grootan.parkingmanagement.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.grootan.parkingmanagement.enums.VehicleType;
 import lombok.*;
 import org.springframework.lang.Nullable;

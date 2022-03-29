@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+    span {
+        display: inline-block;
+        width: 200px;
+        text-align: left;
+    }
+</style>
+</head>
+<body>
+<div align="center">
+    <h1>AVAILABLE SLOT</h1>
+    <span>name:</span><span th:text="${result.name}"></span><br/>
+    <span>address:</span><span th:text="${result.address}"></span><br/>
+    <span>city:</span><span th:text="${result.city}"></span><br/>
+    <span>price:</span><span th:text="${result.price}"></span><br/>
+    <div align="center"><a href="/parkinglot">add slot</a></div>
+</div>
+</body>
+</html>

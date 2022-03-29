@@ -1,6 +1,6 @@
 package com.grootan.parkingmanagement.exception;
 
-import com.grootan.parkingmanagement.domain.ResponeDetails;
+import com.grootan.parkingmanagement.model.ResponeDetails;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -82,6 +82,47 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ResponeDetails responeDetails=new ResponeDetails(LocalDateTime.now(),message,details, HttpStatus.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responeDetails);
     }
+    @ExceptionHandler(VehicleAlreadyCheckedInException.class)
+    public ResponseEntity<Object> VehicleAlreadyCheckedInException(VehicleAlreadyCheckedInException vehicleAlreadyCheckedInException)
+    {
+        String message=vehicleAlreadyCheckedInException.getMessage();
+        String details="parked person";
+        ResponeDetails responeDetails=new ResponeDetails(LocalDateTime.now(),message,details, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responeDetails);
+    }
+    @ExceptionHandler(VehicleNotFoundException.class)
+    public ResponseEntity<Object> VehicleNotFoundException(VehicleNotFoundException exception)
+    {
+        String message=exception.getMessage();
+        String details="Vehicle not found";
+        ResponeDetails responeDetails=new ResponeDetails(LocalDateTime.now(),message,details, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responeDetails);
+    }
+    @ExceptionHandler(VehicleAlreadyCheckedOutException.class)
+    public ResponseEntity<Object> VehicleAlreadyCheckedOutException(VehicleAlreadyCheckedOutException exception)
+    {
+        String message=exception.getMessage();
+        String details="already checkout";
+        ResponeDetails responeDetails=new ResponeDetails(LocalDateTime.now(),message,details, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responeDetails);
+    }
+    @ExceptionHandler(ParkingLotNotFoundException.class)
+    public ResponseEntity<Object> ParkingLotNotFoundException(ParkingLotNotFoundException exception)
+    {
+        String message=exception.getMessage();
+        String details="invalid";
+        ResponeDetails responeDetails=new ResponeDetails(LocalDateTime.now(),message,details, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responeDetails);
+    }
+    @ExceptionHandler(ParkingRecordNotFoundException.class)
+    public ResponseEntity<Object> ParkingRecordNotFoundException(ParkingRecordNotFoundException exception)
+    {
+        String message=exception.getMessage();
+        String details="there is no record about what you search";
+        ResponeDetails responeDetails=new ResponeDetails(LocalDateTime.now(),message,details, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responeDetails);
+    }
+
 
 
 
