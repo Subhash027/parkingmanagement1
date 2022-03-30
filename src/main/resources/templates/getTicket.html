@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+    span {
+        display: inline-block;
+        width: 200px;
+        text-align: left;
+    }
+</style>
+</head>
+<body>
+<div align="center">
+<form action="#" th:action="@{/getLotDetails}" method="post" th:object="${parkingSlotReservation}" >
+
+        <h1>PARKED</h1>
+        <span>PARKINGLOT:</span><span th:text="${parkingSlotReservation.parkingLot}"></span><br/>
+        <span>ENTRYTIME:</span><span th:text="${parkingSlotReservation.inTime}"></span><br/>
+        <span>CITY:</span><span th:text="${parkingSlotReservation.vehicleNumber}"></span><br/>
+        <span>DATE:</span><span th:text="${parkingSlotReservation.bookingDate}"></span><br/>
+        <span>PRICE:</span><span th:text="${parkingSlotReservation.price}"></span><br/>
+
+</form>
+</div>
+</body>
+</html>
