@@ -49,10 +49,11 @@ public class ParkingSlotReservationService {
 		ParkingLot parkingLot=findCorrectOne(customerDetails);
 		if (parkingLot != null) {
 			parkingLot.setEmpty(false);
-			return parkingSlotReservationRepository.save(new ParkingSlotReservation(parkingLot.getName(), java.time.LocalDateTime.now(),customerDetails.getVehicleNumber(),LocalDate.now(), (LocalDateTime) null,0D));
+			parkingLot.getPrice();
+			return parkingSlotReservationRepository.save(new ParkingSlotReservation(parkingLot.getName(), java.time.LocalDateTime.now(),customerDetails.getVehicleNumber(),LocalDate.now(), (LocalDateTime) null,parkingLot.getPrice()));
 
 		} else {
-			throw new ParkingLotNotFoundException("Parking Lot not here");
+			throw new ParkingLotNotFoundException("Parking Lot not suitable for you");
 		}
 	}
 	public CustomerDetails checkIfVehicleExists(CustomerDetails customerDetails)

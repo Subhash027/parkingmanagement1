@@ -2,7 +2,6 @@ package com.grootan.parkingmanagement.controller;
 
 import com.grootan.parkingmanagement.model.CustomerDetails;
 import com.grootan.parkingmanagement.service.CustomerDetailsService;
-import org.apache.el.stream.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class CustomerDetailsController {
@@ -61,7 +61,8 @@ public class CustomerDetailsController {
     public ResponseEntity<?> findByVehicleNumber(@PathVariable(value = "vehicleNumber")String vehicleNumber)
     {
         logger.info("get vehicle number from customer");
-        return ResponseEntity.status(HttpStatus.OK).body(vehicleNumber);
+        Optional<CustomerDetails> customerDetails=customerDetailsService.findByVehicleNumber(vehicleNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(customerDetails);
     }
 
 

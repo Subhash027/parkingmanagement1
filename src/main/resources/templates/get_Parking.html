@@ -6,31 +6,84 @@
     <style type="text/css">
     label {
     display: inline-block;
-    width: 200px;
+    width: 70px;
     margin: 5px;
     text-align: left;
     }
     input[type=text], select {
     display: inline-block;
-    width: 200px;
+    width: 100px;
     }
-    button {
-    padding: 5px;
-    margin: 10px;
+    body{
+            font-family: "Poppins", sans-serif;
+            background: #f2f4f7;
+        }
+
+    body div form button .park{
+    width:80px;
     }
+    div{
+            flex-direction: column;
+            padding: 2rem;
+            background: #fff;
+            width: 530px;
+            height: 480px;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+            margin-top:120px;
+            margin-left:460px;
+            font-size:25px;
+    }
+    button{
+        border:0;
+        background:#9ACD32;
+        width:100px;
+        text-align:center;
+        border-radius:24px;
+        padding: 14px 20px;
+        cursor:pointer;
+        align:center;
+        margin-left:150px;
+        margin-top:10px;
+    }
+    button[class=park]{
+    margin-top:40px;
+    margin-left:10px;
+    }
+    form h1{
+        margin-top:10px;
+        margin-bottom:40px;
+
+        color: #416ea3;
+        }
+    button[type=submit]
+    {
+            outline: none;
+            border: none;
+            color: #fff;
+            font-size: 0.8rem;
+
+    }
+    button[type=submit]:hover {
+            background: #dc931f;
+            cursor: pointer;
+        }
+
+
     </style>
 </head>
 <body>
-<h1>get park</h1>
 <div align="center">
-    <h1 align="center">PARKING YOUR VEHICLE</h1>
-    <h6>give the details again</h6>
+
     <form action="#" th:action="@{/getParkingAvailable}" method="get" th:object="${result}" >
-
+        <h1 align="center">PARKING LOT</h1>
+        <label>AVAILABLE:</label>
         <button type="submit">IsAvailable</button>
-
-
+    </form><br/><br/><br/>
+    <form action="#" th:action="@{/customer/details}" method="get" th:object="${customerDetails}">
+        <button type="submit" class="park">Park</button>
     </form>
+
 </div>
 
 </body>

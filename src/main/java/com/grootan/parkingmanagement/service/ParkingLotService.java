@@ -1,6 +1,7 @@
 package com.grootan.parkingmanagement.service;
 
 import com.grootan.parkingmanagement.enums.VehicleType;
+import com.grootan.parkingmanagement.exception.ParkingLotNotFoundException;
 import com.grootan.parkingmanagement.model.ParkingLot;
 import com.grootan.parkingmanagement.repository.ParkingLotRepository;
 import org.slf4j.Logger;
@@ -42,4 +43,10 @@ public class ParkingLotService {
 	{
 		return parkingLotRepository.findParkingLotByVehicleType(vehicleType);
 	}
+
+//	public ParkingLot findFreeSpace()
+//	{
+//		List<ParkingLot> parkingLot= parkingLotRepository.findAllParkingLotByIsEmpty(true);
+//		return  parkingLot;
+//	}
 }

@@ -3,6 +3,7 @@ package com.grootan.parkingmanagement.controller.UiController;
 import com.grootan.parkingmanagement.controller.CustomerDetailsController;
 import com.grootan.parkingmanagement.model.CustomerDetails;
 import com.grootan.parkingmanagement.model.ParkingLot;
+import com.grootan.parkingmanagement.service.CustomerDetailsService;
 import com.grootan.parkingmanagement.service.ParkingLotService;
 import com.grootan.parkingmanagement.service.ParkingSlotReservationService;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
@@ -27,7 +29,11 @@ public class UiParkingSlotReservation {
 	@Autowired
 	ParkingLotService parkingLotService;
 
+	@Autowired
+	CustomerDetailsService customerDetailsService;
+
 	Logger logger= LoggerFactory.getLogger(UiParkingSlotReservation.class);
+
 
 	@GetMapping("/getParkingAvailable")
 	public String getEmptyParkingLots(Model model)
@@ -38,12 +44,19 @@ public class UiParkingSlotReservation {
 		model.addAttribute("result",result);
 		return "get_slot";
 	}
-//	@PostMapping("/customer/details")
-//	public String lotCreated(@ModelAttribute("customerDetails") CustomerDetails customerDetails)
-//	{
-//		logger.info("collect data from customer store into DB");
-//		parkingSlotReservationService.saveUserDetails(customerDetails);
-//		logger.info("user saved in databse");
-//		return "get_Parking";
-//	}
+
+	@GetMapping("/getpark")
+	public String lotCreated(Model model)
+	{
+		CustomerDetails customerDetails1=new CustomerDetails();
+		model.addAttribute("customerDetails",customerDetails1);
+		return "get_park";
+	}
+
+	@GetMapping("/getLotDetails")
+	public String LotDetails()
+	{
+		return "get_Parking";
+	}
+
 }

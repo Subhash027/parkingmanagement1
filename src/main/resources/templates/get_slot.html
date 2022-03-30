@@ -4,21 +4,50 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style type="text/css">
-    span {
-        display: inline-block;
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+     }
+    body{
+    justify-content: center;
+    min-height:100vh ;
+    }
+    ul {
+        margin-top:50px;
+        width:50x;
+    }
+    label {
+
         width: 200px;
+        margin: 5px;
         text-align: left;
     }
+    ul li {
+    display: inline-block;
+    list-style: none;
+    width: 85px;
+    height:40px ;
+    z-index: 1;
+}
+
 </style>
 </head>
 <body>
 <div align="center">
     <h1>AVAILABLE SLOT</h1>
-    <span>name:</span><span th:text="${result.name}"></span><br/>
-    <span>address:</span><span th:text="${result.address}"></span><br/>
-    <span>city:</span><span th:text="${result.city}"></span><br/>
-    <span>price:</span><span th:text="${result.price}"></span><br/>
-    <div align="center"><a href="/parkinglot">add slot</a></div>
+    <ul class="availableList" th:each="result : ${result}">
+        <lable>Name:</lable>
+        <li th:text="${result.name}"/>
+        <lable>Address:</lable>
+        <li th:text="${result.address}"/>
+        <lable>City:</lable>
+        <li th:text="${result.city}"/>
+        <lable>Available:</lable>
+        <li th:text="${result.isEmpty}"/>
+    </ul>
+    <form action="#" th:action="@{/getLotDetails}" method="get"  >
+        <button type="submit">back</button></form>
 </div>
 </body>
 </html>
