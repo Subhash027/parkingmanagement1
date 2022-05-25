@@ -36,7 +36,7 @@
 
         .name-content .logo {
             font-size: 5rem;
-            color: #2a2a2b31;
+            color: #416ea3;
         }
 
         .name-content p {
@@ -247,15 +247,20 @@
             <p>&nbsp&nbspBook your car parking on the fly</p>
         </div>
 
+
     <form action="#" th:action="@{/getLotDetails}" method="get" th:object="${parkingLot}" >
-        <h1 align="center">PARKING LOT</h1>
+
         <input type="text" th:field="*{name}" placeholder="username"/><br/>
 
         <input type="text" th:field="*{address}" placeholder="password"/><br/>
 
-        <button type="submit">login</button>
+        <button type="submit" class="login">login</button><br/>
+        <label>New user ?</label>
+        <button class="create-account">Create New Account</button>
 
     </form>
+
+
     </div>
 </div>
 </body>
